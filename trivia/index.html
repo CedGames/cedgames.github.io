@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wer hat das gesagt?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #333;
+            color: #fff;
+        }
+
+        #container {
+            background-color: #444;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h1 {
+            color: #fff;
+        }
+
+        #question {
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            background-color: #f0f0f0;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .correct {
+            background-color: #5d8d45;
+        }
+
+        .incorrect {
+            background-color: #8d2c2c;
+        }
+    </style>
+</head>
+<body>
+	
+    <div id="container">
+		<h1>Wer hat das gesagt?</h1>
+        <div id="question"></div>
+        <div id="answers"></div>
+    </div>
+
+    <script>
+        const questionElement = document.getElementById('question');
+        const answersElement = document.getElementById('answers');
+        let correctAnswers = 0;
+        let currentQuestionIndex = 0;
+
+        const questions = [
+            {
+                question: '"Ich glaube vor meinen Augen wurde ein Dreier gemacht."',
+                answers: ['Noah', 'Philipp', 'An-Son', 'Christian'],
+                correctAnswer: 'An-Son',
+                userAnswer: 'unanswered'
+            },
+            {
+                question: '"Nichts ist sicher, außer dass wir alle sterben werden."',
+                answers: ['M. Ahles', 'Philipp', 'An-Son', 'Christian'],
+                correctAnswer: 'M. Ahles',
+                userAnswer: 'unanswered'
+            }
+
+            // Add more questions as needed
+        ];
+
+        function displayQuestion() {
+            const currentQuestion = questions[currentQuestionIndex];
+            questionElement.textContent = currentQuestion.question;
+
+            answersElement.innerHTML = '';
+
+            currentQuestion.answers.forEach(answer => {
+                const button = document.createElement('button');
+                button.textContent = answer;
+                button.classList.add('btn');
+                button.addEventListener('click', () => checkAnswer(answer));
+                answersElement.appendChild(button);
+            });
+        }
+
+        function checkAnswer(answer) {
+            const currentQuestion = questions[currentQuestionIndex];
+            if (answer === currentQuestion.correctAnswer) {
+                correctAnswers++;
+                showPopup('Correct answer!', 'correct');
+            } else {
+                showPopup('Incorrect answer. Try again.', 'incorrect');
+            }
+
+            questions[currentQuestionIndex].userAnswer = answer;
+
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showPopup(message, className) {
+    const popup = document.createElement('div');
+    popup.classList.add('result', className);
+    popup.textContent = message;
+    const container = document.getElementById('container');
+    container.parentNode.insertBefore(popup, container.nextSibling); // Insert after the container
+    setTimeout(() => {
+        popup.remove();
+    }, 1500);
+}
+
+
+        function showResults() {
+            document.getElementById('container').innerHTML = `<h1>Results</h1><p>You answered ${correctAnswers} out of ${questions.length} questions correctly.</p>`;
+            questions.forEach((q, index) => {
+                const result = document.createElement('div');
+                result.classList.add('result', questions[index].correctAnswer === questions[index].userAnswer ? 'correct' : 'incorrect');
+                result.innerHTML = `<p><strong>Question ${index + 1}:</strong> ${q.question}</p>
+                                    <p><strong>Your Answer:</strong> ${q.userAnswer}</p>
+                                    <p><strong>Correct Answer:</strong> ${q.correctAnswer}</p>`;
+                document.getElementById('container').appendChild(result);
+            });
+        }
+
+        displayQuestion();
+    </script>
+</body>
+</html>
