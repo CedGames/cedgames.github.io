@@ -3,15 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wer hat das gesagt?</title>
+    <title>Kakapo Community Trivia</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
             background-color: #333;
             color: #fff;
@@ -39,7 +36,7 @@
             display: inline-block;
             padding: 10px 20px;
             margin: 0 10px;
-            background-color: #007bff;
+            background-color: #4d637a;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -48,7 +45,7 @@
         }
 
         .btn:hover {
-            background-color: #0056b3;
+            background-color: #495b6e;
         }
 
         .result {
@@ -66,17 +63,39 @@
         .incorrect {
             background-color: #8d2c2c;
         }
+
+        .center {
+            border: 5px solid;
+            border-color: #4d637a;
+            margin: auto;
+            width: 50%;
+            padding: 10px;
+        }
+
+        .center-clean {
+            margin: auto;
+            width: fit-content;
+            padding: 10px;
+        }
+
+        .nav-brand {
+            padding: 10px;
+        }
     </style>
+
+<div class='nav-brand'> 
+    <a href='https://cedgames.github.io'> 
+      <img src='https://cedgames.github.io/images/icon.png' alt='CedGames Logo' width='50px' height='50px'> 
+    </a> 
+   </div>
 </head>
+
+
 <body>
 
-    <div class='nav-brand'> 
-        <a href='https://cedgames.github.io'> 
-          <img src='https://cedgames.github.io/images/icon.png' alt='CedGames Logo' width='50px' height='50px'> 
-        </a> 
-       </div>
+   
 	
-    <div id="container">
+    <div id="container" class="center">
 		<h1>Wer hat das gesagt?</h1>
         <div id="question"></div>
         <div id="answers"></div>
@@ -99,6 +118,12 @@
                 question: '"Nichts ist sicher, außer dass wir alle sterben werden."',
                 answers: ['M. Ahles', 'Philipp', 'An-Son', 'Christian'],
                 correctAnswer: 'M. Ahles',
+                userAnswer: 'unanswered'
+            },
+            {
+                question: 'Du hast alle Fragen beantwortet. Hat dir das Quiz gefallen?',
+                answers: ['Ja! (weiter zur Auswertung)', 'Nein. (auch weiter zur Auswertung)'],
+                correctAnswer: 'Ja! (weiter zur Auswertung)',
                 userAnswer: 'unanswered'
             }
 
@@ -140,15 +165,16 @@
         }
 
         function showPopup(message, className) {
-    const popup = document.createElement('div');
-    popup.classList.add('result', className);
-    popup.textContent = message;
-    const container = document.getElementById('container');
-    container.parentNode.insertBefore(popup, container.nextSibling); // Insert after the container
-    setTimeout(() => {
-        popup.remove();
-    }, 1500);
-}
+                const popup = document.createElement('div');
+                popup.classList.add('result', className);
+                popup.classList.add('center-clean', className);
+                popup.textContent = message;
+                const container = document.getElementById('container');
+                container.parentNode.insertBefore(popup, container.nextSibling); // Insert after the container
+                setTimeout(() => {
+                popup.remove();
+            }, 1500);
+        }
 
 
         function showResults() {
