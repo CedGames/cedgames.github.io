@@ -4,7 +4,7 @@
     <link rel="shortcut icon"href="https://cedgames.github.io/images/favicon.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kakapo Community Trivia</title>
+    <title>CedGames</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,6 +23,7 @@
             max-width: 500px;
             width: 90%;
             text-align: center;
+            padding: 40px 20px;
         }
 
         h1 {
@@ -36,7 +37,7 @@
         .btn {
             display: inline-block;
             padding: 10px 20px;
-            margin: 0 10px;
+            margin: 0 5px;
             background-color: #4d637a;
             color: #fff;
             border: none;
@@ -55,6 +56,9 @@
             margin-bottom: 10px;
             border-radius: 5px;
             text-align: center;
+
+            animation-name: appear;
+            animation-duration: 0.5s;
         }
 
         .correct {
@@ -79,9 +83,29 @@
             padding: 10px;
         }
 
+        @keyframes slide {
+            from {margin-bottom: 0px;}
+            to {margin-bottom: 20px;}
+        }
+
+        @keyframes appear {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes rainbow {
+            from {background-color: rgb(255, 72, 0);}
+            to {background-color: rgb(255, 153, 0);}
+        }
+
         .nav-brand {
             padding: 10px;
+            transition: padding-left 0.3s ease;
         }
+        .nav-brand:hover {
+            padding-left: 20px;
+        }
+
     </style>
 
 <div class='nav-brand'> 
@@ -148,6 +172,14 @@
            
         }
 
+        function disableAnswerButtons() {
+
+            while(answersElement.childNodes.length > 0)
+            {
+                answersElement.childNodes[0].remove();
+            }
+        }
+
         function checkAnswer(answer) {
             const currentQuestion = questions[currentQuestionIndex];
             if (answer === currentQuestion.correctAnswer) {
@@ -160,11 +192,14 @@
             questions[currentQuestionIndex].userAnswer = answer;
 
             currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                displayQuestion();
-            } else {
-                showResults();
-            }
+            disableAnswerButtons();
+            setTimeout(() => {
+                if (currentQuestionIndex < questions.length) {
+                    displayQuestion();                
+                } else {
+                    showResults();
+                }
+            }, 1500);
         }
 
         function showPopup(message, className) {
@@ -173,7 +208,10 @@
                 popup.classList.add('center-clean', className);
                 popup.textContent = message;
                 const container = document.getElementById('container');
+                if(container.nextSibling != null) container.nextSibling.remove();
                 container.parentNode.insertBefore(popup, container.nextSibling); // Insert after the container
+                
+                
                 setTimeout(() => {
                 popup.remove();
             }, 1500);
