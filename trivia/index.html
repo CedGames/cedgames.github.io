@@ -136,7 +136,8 @@
             questionElement.textContent = currentQuestion.question;
 
             answersElement.innerHTML = '';
-
+            /* https://www.w3schools.com/howto/howto_js_filter_dropdown.asp */
+            
             currentQuestion.answers.forEach(answer => {
                 const button = document.createElement('button');
                 button.textContent = answer;
@@ -144,6 +145,7 @@
                 button.addEventListener('click', () => checkAnswer(answer));
                 answersElement.appendChild(button);
             });
+           
         }
 
         function checkAnswer(answer) {
@@ -189,7 +191,6 @@
                 document.getElementById('container').appendChild(result);
             });
         }
-
         displayQuestion();
     </script>
 </body>
