@@ -149,9 +149,9 @@
             const currentQuestion = questions[currentQuestionIndex];
             if (answer === currentQuestion.correctAnswer) {
                 correctAnswers++;
-                showPopup('Correct answer!', 'correct');
+                showPopup('Richtig!', 'correct');
             } else {
-                showPopup('Incorrect answer. Try again.', 'incorrect');
+                showPopup('Leider Falsch.', 'incorrect');
             }
 
             questions[currentQuestionIndex].userAnswer = answer;
@@ -178,13 +178,13 @@
 
 
         function showResults() {
-            document.getElementById('container').innerHTML = `<h1>Results</h1><p>You answered ${correctAnswers} out of ${questions.length} questions correctly.</p>`;
+            document.getElementById('container').innerHTML = `<h1>Ergebnis</h1><p>Du hast ${correctAnswers} von ${questions.length} Zitaten richtig zugeordnet.</p>`;
             questions.forEach((q, index) => {
                 const result = document.createElement('div');
                 result.classList.add('result', questions[index].correctAnswer === questions[index].userAnswer ? 'correct' : 'incorrect');
-                result.innerHTML = `<p><strong>Question ${index + 1}:</strong> ${q.question}</p>
-                                    <p><strong>Your Answer:</strong> ${q.userAnswer}</p>
-                                    <p><strong>Correct Answer:</strong> ${q.correctAnswer}</p>`;
+                result.innerHTML = `<p><strong>${index + 1}. Frage:</strong> ${q.question}</p>
+                                    <p><strong>Deine Antwort:</strong> ${q.userAnswer}</p>
+                                    <p><strong>Richtige Antwort:</strong> ${q.correctAnswer}</p>`;
                 document.getElementById('container').appendChild(result);
             });
         }
