@@ -131,29 +131,61 @@
         const answersElement = document.getElementById('answers');
         let correctAnswers = 0;
         let currentQuestionIndex = 0;
+        let answerOptions = 4;
 
         const questions = [
             {
                 question: '"Ich glaube vor meinen Augen wurde ein Dreier gemacht."',
                 answers: ['Noah', 'Philipp', 'An-Son', 'Christian'],
-                correctAnswer: 'An-Son',
-                userAnswer: 'unanswered'
+                correctAnswer: 'An-Son'
             },
             {
                 question: '"Nichts ist sicher, außer dass wir alle sterben werden."',
                 answers: ['M. Ahles', 'Philipp', 'An-Son', 'Christian'],
-                correctAnswer: 'M. Ahles',
-                userAnswer: 'unanswered'
+                correctAnswer: 'M. Ahles'
             },
             {
-                question: 'Du hast alle Fragen beantwortet. Hat dir das Quiz gefallen?',
-                answers: ['Ja! (weiter zur Auswertung)', 'Nein. (auch weiter zur Auswertung)'],
-                correctAnswer: 'Ja! (weiter zur Auswertung)',
-                userAnswer: 'unanswered'
+                question: 'Q: "Wann war 9/11?" A: "Äh... 9. Nov. 1974?"',
+                answers: ['Cedrik', 'Maurice', 'An-Son', 'Christian'],
+                correctAnswer: 'An-Son'
+            },
+            {
+                question: '"Der schwarze Mann, das ist Kriminalität"',
+                answers: ['Noah', 'Maurice', 'An-Son', 'Christian'],
+                correctAnswer: 'Maurice'
+            },
+            {
+                question: '"Darum gibt es Rassismus auf der Welt"',
+                answers: ['Philipp', 'Maurice', 'Noah', 'Christian'],
+                correctAnswer: 'Maurice'
+            },
+            {
+                question: '"Also ich war im Kindergarten sehr erotisch, muss ich sagen."',
+                answers: ['Philipp', 'An-Son', 'Noah', 'Christian'],
+                correctAnswer: 'An-Son'
+            },
+            {
+                question: '"Das ist das [mit] Fett bekleckerte?"',
+                context: 'Es geht um den Koran',
+                answers: ['Philipp', 'An-Son', 'Noah', 'Christian'],
+                correctAnswer: 'An-Son'
+            },
+            {
+                question: '"Ist es Özgürlük Anıtı?"',
+                context: 'Freiheitsstatue auf türkisch',
+                answers: ['Philipp', 'An-Son', 'Lukas', 'Christian'],
+                correctAnswer: 'Lukas'
             }
 
             // Add more questions as needed
         ];
+
+        const people = [
+            'An-Son', 'Cedrik', 'Maurice', 'Christian', 'Noah', 'Philipp', 'M. Ahles', 'Lukas', 'Milan', 'R. Stuers', 'T. Troost', 'Julian', 'Felix', 'Elias', 'C. Littke', 'M. Waldschmidt', 'Alex',
+            'Leonard', 'Nicole', 'Nils', 'Daniel', 'Drathen'
+        ];
+
+        const questionPool = questions;
 
         function displayQuestion() {
             const currentQuestion = questions[currentQuestionIndex];
