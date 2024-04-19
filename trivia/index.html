@@ -3,8 +3,8 @@
 <head>
     <link rel="shortcut icon"href="https://cedgames.github.io/images/favicon.png">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CedGames</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <title>Ced | Trivia</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,14 +24,22 @@
             width: 90%;
             text-align: center;
             padding: 40px 20px;
+            margin-bottom: 15px;
         }
 
         h1 {
             color: #fff;
+            margin-bottom: 20px;
         }
 
         #question {
+            margin-bottom: 10px;
+        }
+
+        #context {
             margin-bottom: 20px;
+            font-size: smaller;
+            color: #a7b1bd;
         }
 
         .btn {
@@ -43,6 +51,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             transition: background-color 0.3s ease;
         }
 
@@ -119,15 +128,17 @@
 <body>
 
    
-	
+	<h1 class="center-clean">Wer hat das gesagt?</h1>
     <div id="container" class="center">
-		<h1>Wer hat das gesagt?</h1>
+		
         <div id="question"></div>
+        <div id="context"></div>
         <div id="answers"></div>
     </div>
 
     <script>
         const questionElement = document.getElementById('question');
+        const contextElement = document.getElementById('context');
         const answersElement = document.getElementById('answers');
         let correctAnswers = 0;
         let currentQuestionIndex = 0;
@@ -145,18 +156,20 @@
                 correctAnswer: 'M. Ahles'
             },
             {
-                question: 'Q: "Wann war 9/11?" A: "Äh... 9. Nov. 1974?"',
+                question: '"Äh... 9. Nov. 1974?"',
+                context: '"Wann war 9/11?"',
                 answers: ['Cedrik', 'Maurice', 'An-Son', 'Christian'],
                 correctAnswer: 'An-Son'
             },
             {
                 question: '"Der schwarze Mann, das ist Kriminalität"',
-                answers: ['Noah', 'Maurice', 'An-Son', 'Christian'],
+                answers: ['Noah', 'Maurice', 'An-Son', 'Leonard'],
                 correctAnswer: 'Maurice'
             },
             {
                 question: '"Darum gibt es Rassismus auf der Welt"',
-                answers: ['Philipp', 'Maurice', 'Noah', 'Christian'],
+                context: 'ein schwarzer Spieler hat eine Torchance vergeben',
+                answers: ['Philipp', 'Noah', 'Maurice', 'Christian'],
                 correctAnswer: 'Maurice'
             },
             {
@@ -166,8 +179,8 @@
             },
             {
                 question: '"Das ist das [mit] Fett bekleckerte?"',
-                context: 'Es geht um den Koran',
-                answers: ['Philipp', 'An-Son', 'Noah', 'Christian'],
+                context: 'Es geht um den Koran, die heilige Schrift des Islams',
+                answers: ['Philipp', 'Noah', 'Milan', 'An-Son'],
                 correctAnswer: 'An-Son'
             },
             {
@@ -190,6 +203,14 @@
         function displayQuestion() {
             const currentQuestion = questions[currentQuestionIndex];
             questionElement.textContent = currentQuestion.question;
+            if(currentQuestion.context != undefined)
+            {
+                contextElement.textContent = `Kontext: ${currentQuestion.context}`;
+            }
+            else
+            {
+                contextElement.textContent = '';
+            }
 
             answersElement.innerHTML = '';
             /* https://www.w3schools.com/howto/howto_js_filter_dropdown.asp */
